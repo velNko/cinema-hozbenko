@@ -6,13 +6,19 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "Home",
+      name: "home",
       component: Home,
     },
     {
       path: "/movie/:id",
       name: "movie",
       component: () => import("../views/movie.vue"),
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      beforeEnter: (to, from, next) => {
+        next({ name: "home" });
+      },
     },
   ],
 });
