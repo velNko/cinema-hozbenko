@@ -1,5 +1,3 @@
-<script></script>
-
 <template>
   <div class="p-5 max-w-[1300px] mx-auto">
     <router-link
@@ -11,5 +9,3 @@
     <router-view />
   </div>
 </template>
-
-<style scoped></style>

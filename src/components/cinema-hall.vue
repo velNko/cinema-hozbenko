@@ -1,7 +1,8 @@
 <script>
 import { defineComponent } from "vue";
 import { postBookedPlace } from "@/api/movies";
-import TicketInfo from "@/components/ticket-info.vue";
+import TicketModal from "@/components/ticket-modal.vue";
+
 export default defineComponent({
   name: "CinemaHall",
   props: {
@@ -9,7 +10,7 @@ export default defineComponent({
       required: true,
     },
   },
-  components: { TicketInfo },
+  components: { TicketModal },
   inject: ["movieId"],
   data() {
     return {
@@ -30,15 +31,16 @@ export default defineComponent({
     },
     checkPlace(place, row) {
       if (this.isBooked(place, row) || !place.is_free) return;
+
       const duplicate = this.isChecked(place, row);
 
       place = place.seat;
       row = row[0].row;
       if (duplicate) {
         this.checkedPlace = null;
-      } else {
-        this.checkedPlace = { seat: place, row };
+        return;
       }
+      this.checkedPlace = { seat: place, row };
     },
     isBooked(place, row) {
       place = place.seat;
@@ -107,7 +109,7 @@ export default defineComponent({
     >
       Book Place
     </button>
-    <ticket-info
+    <ticket-modal
       v-model:opened="openTicket"
       :ticketInfo="ticketInfo"
       :error="error"

@@ -2,6 +2,7 @@
 import { defineComponent } from "vue";
 import movieItem from "../components/movie-item.vue";
 import { getMovies } from "@/api/movies.js";
+import { genres } from "@/utils/movie.utils.js";
 
 export default defineComponent({
   name: "Home",
@@ -12,14 +13,7 @@ export default defineComponent({
       choosenGenre: null,
       searchMovie: "",
       showAllButton: false,
-      genres: [
-        { id: 0, name: "action" },
-        { id: 1, name: "adventures" },
-        { id: 2, name: "comedy" },
-        { id: 3, name: "drama" },
-        { id: 4, name: "horror" },
-        { id: 5, name: "westerns" },
-      ],
+      genres,
     };
   },
   computed: {
@@ -83,11 +77,11 @@ export default defineComponent({
     </div>
     <div class="flex justify-center mb-10">
       <input
-        type="text"
         v-model="searchMovie"
-        @keyup.enter="findMovie"
+        type="text"
         placeholder="Find a movie"
         class="py-1 px-2 border border-white rounded-sm outline-none focus:border-blue-500 text-gray-800"
+        @keyup.enter="findMovie"
       />
       <button
         type="button"
