@@ -1,4 +1,4 @@
-export const genres = Object.freeze([
+export const GENRES = Object.freeze([
   { id: 0, name: "action" },
   { id: 1, name: "adventures" },
   { id: 2, name: "comedy" },

@@ -26,7 +26,7 @@ export default defineComponent({
     try {
       getMovies({ movie_id: this.movieId }).then((res) => {
         const { data } = res.data;
-        this.movieInfo = data && data[0];
+        this.movieInfo = data?.[0];
       });
       getMoviesSessions({ movie_id: this.movieId }).then((res) => {
         const { data } = res.data;

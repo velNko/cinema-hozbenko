@@ -2,7 +2,7 @@
 import { defineComponent } from "vue";
 import movieItem from "../components/movie-item.vue";
 import { getMovies } from "@/api/movies.js";
-import { genres } from "@/utils/movie.utils.js";
+import { GENRES } from "@/constants/movie.const.js";
 
 export default defineComponent({
   name: "Home",
@@ -13,7 +13,7 @@ export default defineComponent({
       choosenGenre: null,
       searchMovie: "",
       showAllButton: false,
-      genres,
+      genres: GENRES,
     };
   },
   computed: {
