@@ -22,31 +22,27 @@ export default defineComponent({
     };
   },
   methods: {
-    isChecked(place, row) {
-      place = place?.seat;
-      row = row[0]?.row;
-      return (
-        this.checkedPlace?.seat === place && this.checkedPlace?.row === row
-      );
+    isChecked(place, seatRow) {
+      const { seat, row } = this.destructPlaceParams(place, seatRow);
+      return this.checkedPlace?.seat === seat && this.checkedPlace?.row === row;
     },
-    checkPlace(place, row) {
-      if (this.isBooked(place, row) || !place.is_free) return;
+    checkPlace(place, seatRow) {
+      if (this.isBooked(place, seatRow) || !place.is_free) return;
 
-      const duplicate = this.isChecked(place, row);
+      const duplicate = this.isChecked(place, seatRow);
 
-      place = place.seat;
-      row = row[0].row;
       if (duplicate) {
         this.checkedPlace = null;
         return;
       }
-      this.checkedPlace = { seat: place, row };
+
+      const { seat, row } = this.destructPlaceParams(place, seatRow);
+      this.checkedPlace = { seat, row };
     },
-    isBooked(place, row) {
-      place = place.seat;
-      row = row[0].row;
+    isBooked(place, seatRow) {
+      const { seat, row } = this.destructPlaceParams(place, seatRow);
       return this.bookedSeats.find(
-        (booked) => booked.seat === place && booked.row === row
+        (booked) => booked.seat === seat && booked.row === row
       );
     },
     bookPlace() {
@@ -71,6 +67,11 @@ export default defineComponent({
             err?.response?.statusText ||
             "You can`t book this seat. Please try another one";
         });
+    },
+    destructPlaceParams(place, seatRow) {
+      const seat = place?.seat;
+      const row = seatRow?.[0]?.row;
+      return { seat, row };
     },
   },
 });
